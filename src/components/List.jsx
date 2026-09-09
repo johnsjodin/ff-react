@@ -1,9 +1,11 @@
+import './List.css'
+
 function List() {
   return (
-    <ul>
+    <ol>
       <li>Få VG</li>
       <li>Dabba</li>
-    </ul>
+    </ol>
   );
 }
 
