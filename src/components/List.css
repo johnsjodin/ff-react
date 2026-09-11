@@ -1,4 +1,7 @@
 ol {
+  text-align: center;
   max-width: 400px;
   margin: 0 auto;
+  list-style-position: inside; /* Ser till att siffrorna i en ol följer med texten */
+  padding-left: 0;
 }
