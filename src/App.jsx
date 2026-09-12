@@ -1,13 +1,15 @@
-import Footer from './components/Footer.jsx'
 import Header from './components/Header.jsx'
-import List from './components/List.jsx'
+import LandingChoice from './components/LandingChoice.jsx'
+import SavedFactionsList from './components/SavedFactionsList.jsx'
+import FactionSheet from './components/FactionSheet.jsx'
 
 function App() {
 return (
     <>
       <Header />
-      <List />
-      <Footer />
+      <LandingChoice />
+      <SavedFactionsList />
+      <FactionSheet />
     </>
   );
 
