@@ -1,6 +1,6 @@
 function SavedFactionsList() {
   return (
-    <div className="saved-factions-list">
+    <div className="load">
         <p>This is the saved factions list.</p>
     </div>
   );
