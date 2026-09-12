@@ -1,9 +1,7 @@
-import './Header.css'
-
 function Header() {
   return (
-    <header>
-      <h1>Johns projekt</h1>
+    <header className="header">
+      <h1>Faction Factory</h1>
     </header>
   );
 }
