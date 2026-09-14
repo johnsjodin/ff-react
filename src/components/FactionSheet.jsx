@@ -13,7 +13,7 @@ const organisationOptions = {
   'Guild / Order': ['Trade Guild', 'Knightly Order', 'Religious Order', 'Academic Order', 'Secret Society'],
   Company: ['Trading Company', 'Banking House', 'Industrial Conglomerate', 'Mercenary Contractor', 'Cartel', 'Megacorporation'],
   Cult: ['Doomsday Cult', 'Fringe Sect', 'Death Cult', "Prophet's Following", 'Techno-Cult'],
-  Other: ['Tribe / Clan', 'Collective', 'Loose Network', 'Solitary Leader'],
+  Other: ['Tribe / Clan', 'Collective', 'Loose Network', 'Solitary Leader']
 };
 
   return (
