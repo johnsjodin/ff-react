@@ -5,7 +5,16 @@ const [name, setName] = useState('');
 const [motto, setMotto] = useState('');
 const [description, setDescription] = useState('');
 const [type, setType] = useState('');
+const [organisation, setOrganisation] = useState('');
 const typeOptions = ['Nation', 'Outlaws', 'Guild / Order', 'Company', 'Cult', 'Other'];
+const organisationOptions = {
+  Nation: ['Democracy', 'Monarchy', 'Dictatorship', 'Theocracy', 'Republic', 'Anarchy', 'Technocracy', 'Corporate State'],
+  Outlaws: ['Raiders', 'Smugglers', "Thieves' Guild", 'Assassins', 'Rogue Mercenaries', 'Hackers'],
+  'Guild / Order': ['Trade Guild', 'Knightly Order', 'Religious Order', 'Academic Order', 'Secret Society'],
+  Company: ['Trading Company', 'Banking House', 'Industrial Conglomerate', 'Mercenary Contractor', 'Cartel', 'Megacorporation'],
+  Cult: ['Doomsday Cult', 'Fringe Sect', 'Death Cult', "Prophet's Following", 'Techno-Cult'],
+  Other: ['Tribe / Clan', 'Collective', 'Loose Network', 'Solitary Leader'],
+};
 
   return (
     <div className="sheet">
@@ -50,7 +59,18 @@ const typeOptions = ['Nation', 'Outlaws', 'Guild / Order', 'Company', 'Cult', 'O
                 </option>
               ))}
             </select>
-          
+        </label>
+
+        <label>
+          Organisation
+            <select value={organisation} onChange={(e) => setOrganisation(e.target.value)}>
+              <option value="" disabled>Select organisation type</option>
+              {type && organisationOptions[type].map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
         </label>
     </div>
   );
