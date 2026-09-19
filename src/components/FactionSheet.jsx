@@ -6,6 +6,7 @@ function FactionSheet() {
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
   const [organisation, setOrganisation] = useState('');
+  const [status, setStatus] = useState(null);
   const typeOptions = ['Nation', 'Outlaws', 'Guild / Order', 'Company', 'Cult', 'Other'];
   const organisationOptions = {
     Nation: ['Democracy', 'Monarchy', 'Dictatorship', 'Theocracy', 'Republic', 'Anarchy', 'Technocracy', 'Corporate State'],
@@ -16,10 +17,32 @@ function FactionSheet() {
     Other: ['Tribe / Clan', 'Collective', 'Loose Network', 'Solitary Leader']
   };
 
+  // Ser till att organisationen återställs när typen ändras.
   function handleTypeChange(e) {
     setType(e.target.value);
     setOrganisation('');
   }
+
+  // Save-funktion med errorhantering
+  async function handleSave() {
+  const faction = { name, motto, description, type, organisation };
+
+  try {
+    const response = await fetch("http://localhost:5211/api/factions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(faction),
+    });
+    if (!response.ok) {
+      throw new Error(`Server responded with ${response.status}`);
+    }
+    const saved = await response.json();
+    setStatus(`Saved "${saved.name}" with id ${saved.id}!`);
+  } catch (err) {
+    console.error(err);
+    setStatus("Could not save faction. Please try again.");
+  }
+}
 
   return (
     <div className="sheet">
@@ -77,6 +100,9 @@ function FactionSheet() {
               ))}
             </select>
         </label>
+
+        <button onClick={handleSave}>Save Faction</button>
+          {status && <p>{status}</p>}
     </div>
   );
 }
