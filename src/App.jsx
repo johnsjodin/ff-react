@@ -6,8 +6,10 @@ import FactionSheet from './components/FactionSheet.jsx'
 
 function App() {
   const [view, setView] = useState('landing');
+  const [editingFaction, setEditingFaction] = useState(null);
   
   function goToCreate() {
+    setEditingFaction(null);
     setView('sheet');
   }
 
@@ -15,12 +17,17 @@ function App() {
     setView('load');
   }
 
+  function goToEdit(faction) {
+    setEditingFaction(faction);
+    setView('sheet');
+  }
+
   return (
     <>
       <Header />
       {view === 'landing' && <LandingChoice onCreate={goToCreate} onLoad={goToLoad} />}
-      {view === 'load' && <SavedFactionsList />}
-      {view === 'sheet' && <FactionSheet />}
+      {view === 'load' && <SavedFactionsList onEdit={goToEdit} />}
+      {view === 'sheet' && <FactionSheet key={editingFaction?.id ?? 'new'} faction={editingFaction} />}
     </>
   );
 }

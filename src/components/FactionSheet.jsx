@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-function FactionSheet() {
-  const [name, setName] = useState('');
-  const [motto, setMotto] = useState('');
-  const [description, setDescription] = useState('');
-  const [type, setType] = useState('');
-  const [organisation, setOrganisation] = useState('');
+function FactionSheet({ faction }) {
+  const [name, setName] = useState(faction?.name ?? '');
+  const [motto, setMotto] = useState(faction?.motto ?? '');
+  const [description, setDescription] = useState(faction?.description ?? '');
+  const [type, setType] = useState(faction?.type ?? '');
+  const [organisation, setOrganisation] = useState(faction?.organisation ?? '');
   const [status, setStatus] = useState(null);
   const typeOptions = ['Nation', 'Outlaws', 'Guild / Order', 'Company', 'Cult', 'Other'];
   const organisationOptions = {
@@ -25,19 +25,21 @@ function FactionSheet() {
 
   // Save-funktion med errorhantering
   async function handleSave() {
-  const faction = { name, motto, description, type, organisation };
+  const body = { name, motto, description, type, organisation };
+  const editing = faction !== null;
+
+  const url = editing
+    ? `http://localhost:5211/api/factions/${faction.id}`
+    : "http://localhost:5211/api/factions";
 
   try {
-    const response = await fetch("http://localhost:5211/api/factions", {
-      method: "POST",
+    const response = await fetch(url, {
+      method: editing ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(faction),
+      body: JSON.stringify(body),
     });
-    if (!response.ok) {
-      throw new Error(`Server responded with ${response.status}`);
-    }
-    const saved = await response.json();
-    setStatus(`Saved "${saved.name}" with id ${saved.id}!`);
+    if (!response.ok) throw new Error(`Server responded with ${response.status}`);
+    setStatus(editing ? "Faction updated!" : "Faction saved!");
   } catch (err) {
     console.error(err);
     setStatus("Could not save faction. Please try again.");

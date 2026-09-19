@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function SavedFactionsList() {
+function SavedFactionsList({ onEdit }) {
   const [factions, setFactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,6 +36,7 @@ function SavedFactionsList() {
           {factions.map((faction) => (
             <li key={faction.id}>
               <b>{faction.name}</b> - <i>"{faction.motto}"</i>
+              <button onClick={() => onEdit(faction)}>Edit</button>
             </li>
           ))}
         </ul>
