@@ -7,6 +7,8 @@ function FactionSheet({ faction }) {
   const [type, setType] = useState(faction?.type ?? '');
   const [organisation, setOrganisation] = useState(faction?.organisation ?? '');
   const [status, setStatus] = useState(null);
+  const [emblemFile, setEmblemFile] = useState(null);
+
   const typeOptions = ['Nation', 'Outlaws', 'Guild / Order', 'Company', 'Cult', 'Other'];
   const organisationOptions = {
     Nation: ['Democracy', 'Monarchy', 'Dictatorship', 'Theocracy', 'Republic', 'Anarchy', 'Technocracy', 'Corporate State'],
@@ -23,6 +25,7 @@ function FactionSheet({ faction }) {
     setOrganisation('');
   }
 
+  // Reset-knappens funktion
   function handleReset() {
     setName(faction?.name ?? '');
     setMotto(faction?.motto ?? '');
@@ -34,26 +37,48 @@ function FactionSheet({ faction }) {
 
   // Save-funktion med errorhantering
   async function handleSave() {
-  const body = { name, motto, description, type, organisation };
-  const editing = faction !== null;
+    const body = { name, motto, description, type, organisation };
+    const editing = faction !== null;
 
-  const url = editing
-    ? `http://localhost:5211/api/factions/${faction.id}`
-    : "http://localhost:5211/api/factions";
+    const url = editing
+      ? `http://localhost:5211/api/factions/${faction.id}`
+      : "http://localhost:5211/api/factions";
 
-  try {
-    const response = await fetch(url, {
-      method: editing ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    if (!response.ok) throw new Error(`Server responded with ${response.status}`);
-    setStatus(editing ? "Faction updated!" : "Faction saved!");
-  } catch (err) {
-    console.error(err);
-    setStatus("Could not save faction. Please try again.");
+    try {
+      const response = await fetch(url, {
+        method: editing ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!response.ok) throw new Error(`Server responded with ${response.status}`);
+
+      let savedId;
+      if (editing) {
+        savedId = faction.id;
+      } else {
+        const saved = await response.json();
+        savedId = saved.id;
+      }
+
+      if (emblemFile) {
+        const formData = new FormData();
+        formData.append('file', emblemFile);
+
+        const uploadResponse = await fetch(
+          `http://localhost:5211/api/factions/${savedId}/emblem`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        if (!uploadResponse.ok) throw new Error(`Failed to upload emblem: ${uploadResponse.status}`);
+      }
+      setStatus(editing ? "Faction updated!" : "Faction saved!");
+    } catch (err) {
+      console.error(err);
+      setStatus("Could not save faction. Please try again.");
+    }
   }
-}
 
   return (
     <div className="sheet">
@@ -110,6 +135,15 @@ function FactionSheet({ faction }) {
                 </option>
               ))}
             </select>
+        </label>
+
+        <label>
+          Emblem
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setEmblemFile(e.target.files[0])}
+          />
         </label>
 
         <div className="sheet-actions">

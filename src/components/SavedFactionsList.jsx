@@ -35,6 +35,13 @@ function SavedFactionsList({ onEdit }) {
         <ul>
           {factions.map((faction) => (
             <li key={faction.id}>
+              {faction.emblemFileName && (
+                <img
+                  src={`http://localhost:5211/uploads/${faction.emblemFileName}`}
+                  alt=""
+                  className="emblem"
+                />
+              )}
               <span><b>{faction.name}</b> - <i>"{faction.motto}"</i></span>
               <button onClick={() => onEdit(faction)}>Edit</button>
             </li>
