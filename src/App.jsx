@@ -22,12 +22,17 @@ function App() {
     setView('sheet');
   }
 
+  function goHome() {
+  setView('landing');
+}
+
   return (
     <>
-      <Header />
+      <Header onHome={goHome} />
       {view === 'landing' && <LandingChoice onCreate={goToCreate} onLoad={goToLoad} />}
       {view === 'load' && <SavedFactionsList onEdit={goToEdit} />}
       {view === 'sheet' && <FactionSheet key={editingFaction?.id ?? 'new'} faction={editingFaction} />}
+
     </>
   );
 }

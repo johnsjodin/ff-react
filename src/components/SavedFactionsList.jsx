@@ -35,7 +35,7 @@ function SavedFactionsList({ onEdit }) {
         <ul>
           {factions.map((faction) => (
             <li key={faction.id}>
-              <b>{faction.name}</b> - <i>"{faction.motto}"</i>
+              <span><b>{faction.name}</b> - <i>"{faction.motto}"</i></span>
               <button onClick={() => onEdit(faction)}>Edit</button>
             </li>
           ))}

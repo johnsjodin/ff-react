@@ -23,6 +23,15 @@ function FactionSheet({ faction }) {
     setOrganisation('');
   }
 
+  function handleReset() {
+    setName(faction?.name ?? '');
+    setMotto(faction?.motto ?? '');
+    setDescription(faction?.description ?? '');
+    setType(faction?.type ?? '');
+    setOrganisation(faction?.organisation ?? '');
+    setStatus(null);
+  }
+
   // Save-funktion med errorhantering
   async function handleSave() {
   const body = { name, motto, description, type, organisation };
@@ -103,8 +112,12 @@ function FactionSheet({ faction }) {
             </select>
         </label>
 
-        <button onClick={handleSave}>Save Faction</button>
-          {status && <p>{status}</p>}
+        <div className="sheet-actions">
+          <button onClick={handleReset}>Reset</button>
+          <button onClick={handleSave}>Save Faction</button>
+        </div>
+
+        {status && <p>{status}</p>}
     </div>
   );
 }
