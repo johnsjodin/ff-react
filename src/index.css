@@ -156,7 +156,13 @@ button {
 
 /* ===== Media Queries ===== */
 @media (max-width: 600px) {
-  .landing {
-    padding: 2rem 1rem;
+  .home-button img:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .home-button img {
+    display:none;
   }
 }
