@@ -11,6 +11,8 @@ fiktiva världar. Frontend byggd i React, backenden är ASP.NET webAPI:
 
 ## 1. Starta backend
 
+I terminalen:
+
     git clone https://github.com/johnsjodin/ff-api.git
     cd ff-api
     dotnet run
@@ -20,6 +22,8 @@ http://localhost:5211/swagger. Datafilen (factions.json) och
 uploads-mappen skapas automatiskt vid behov.
 
 ## 2. Starta frontend
+
+Starta en ny terminal och skriv:
 
     git clone https://github.com/johnsjodin/ff-react.git
     cd ff-react
