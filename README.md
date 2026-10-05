@@ -39,6 +39,9 @@ Starta en ny terminal och skriv:
 - Misslyckade API-anrop visar felmeddelande i UI:t i stället för att krascha
 - Responsiv: testad från desktop ner till 320px bredd
 
+- Övrigt: För en vackrare frontend (ej godkänd för kursen och alltså inte för
+  betyg) men bara för skojs skull, byt till branchen retro-90s-theme
+
 ## Tekniska val
 
 Jag kör med en JSON-fil som lagring i stället för en riktig databas. Det räcker
